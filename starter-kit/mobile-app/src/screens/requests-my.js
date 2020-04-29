@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { StyleSheet, FlatList, View, Text, TouchableOpacity, Alert } from 'react-native';
 
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const MyResources = function ({ navigation }, hook) {
+const MyRequests = function ({ navigation }, hook) {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
@@ -90,4 +91,4 @@ const MyResources = function ({ navigation }, hook) {
   }
 };
 
-export default MyResources;
+export default MyRequests;

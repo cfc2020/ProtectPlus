@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, FlatList, View, Text, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, FlatList, View, Text, TouchableOpacity, Alert, TouchableHighlight } from 'react-native';
+import AddResource from './resource-add';
 
-import { search, userID } from '../lib/utils'
+import { search, userID } from '../lib/utils';
+
 
 const styles = StyleSheet.create({
   flatListView: {
@@ -20,7 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   itemName: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'IBMPlexSans-Medium',
   },
   itemDescription: {
@@ -46,9 +48,16 @@ const styles = StyleSheet.create({
   }
 });
 
-const MyResources = function ({ navigation }, hook) {
+const AddResourceOptions = function ({ navigation }) {
   const [items, setItems] = React.useState([]);
 
+    const _onPress = (item) => {
+        if (item.key=='Food') {
+            navigation.navigate('Add Food Donation');
+        } else if (item.key=='Money') {
+            navigation.navigate('Add Money Donation');
+        };
+    };
   React.useEffect(() => {
     navigation.addListener('focus', () => {
       search({ userID: userID() })
@@ -59,35 +68,26 @@ const MyResources = function ({ navigation }, hook) {
         });
     })
   }, []);
-
-  const Item = (props) => {
-    return (
-      <TouchableOpacity style={styles.itemTouchable}
-          onPress={() => { navigation.navigate('Edit Donation', { item: props }); }}>
-        <View style={styles.itemView}>
-          <Text style={styles.itemName}>{props.name}</Text>
-          <Text style={styles.itemQuantity}> ( {props.quantity} ) </Text>
-        </View>
-        <Text style={styles.itemDescription}>{props.description}</Text>
-      </TouchableOpacity>
-    );
-  };
   
-  if (items.length > 0) {
     return (
-      <FlatList style={styles.flatListView}
-        data={items}
-        renderItem={({ item }) => <Item {...item} />}
-        keyExtractor={item => item.id || item['_id']}
+       <FlatList style={styles.flatListView}
+        data={[
+               { key: 'Food', title: 'Food'},
+        { key: 'Money', title: 'Money'},
+        { key: 'Other', title: 'Other'}
+        ]}
+        renderItem={({item}) => (
+          <TouchableHighlight style={styles.itemTouchable}
+            key={item.key}
+                                 onPress={() => _onPress(item)}>
+            <View style={styles.itemView}>
+              <Text style={styles.itemName}>{item.title}</Text>
+            </View>
+          </TouchableHighlight>
+        )}
       />
     )
-  } else {
-    return (
-      <View style={styles.emptyListView}>
-        <Text style={styles.emptyListText}>You currently have no donations listed</Text>
-      </View>
-    )
   }
-};
 
-export default MyResources;
+export default AddResourceOptions;
+            

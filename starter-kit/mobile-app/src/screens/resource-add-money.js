@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -75,8 +76,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const AddResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Food', name: '', description: '', location: '', contact: '', quantity: '1' }
+const AddMoneyResource = function ({ navigation }) {
+  const clearItem = { userID: userID(), type: 'Money', name: '', description: '', location: '', contact: '', amount: '10' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
@@ -108,9 +109,10 @@ const AddResource = function ({ navigation }) {
   const sendItem = () => {
     const payload = {
       ...item,
-      quantity: isNaN(item.quantity) ? 1 : parseInt(item.quantity)
+      amount: isNaN(item.amount) ? 1 : parseInt(item.amount)
     };
 
+    setItem({ item, type: 'money' })
     add(payload)
       .then(() => {
         Alert.alert('Thank you!', 'Your item has been added.', [{text: 'OK'}]);
@@ -125,25 +127,12 @@ const AddResource = function ({ navigation }) {
   return (
     <ScrollView style={styles.outerView}>
       <View style={styles.splitView}>
-        <View style={styles.typeArea}>
-          <Text style={styles.label}>Type</Text>
-          <PickerSelect
-            style={{ inputIOS: styles.selector }}
-            value={item.type}
-            onValueChange={(t) => setItem({ ...item, type: t })}
-            items={[
-                { label: 'Food', value: 'Food' },
-                { label: 'Help', value: 'Help' },
-                { label: 'Other', value: 'Other' }
-            ]}
-          />
-        </View>
         <View style={styles.quantityArea}>
-          <Text style={styles.label}>Quantity</Text>
+          <Text style={styles.label}>Amount ($)</Text>
           <TextInput
             style={styles.textInput}
-            value={item.quantity}
-            onChangeText={(t) => setItem({ ...item, quantity: t})}
+            value={item.amount}
+            onChangeText={(t) => setItem({ ...item, amount: t})}
             onSubmitEditing={sendItem}
             returnKeyType='send'
             enablesReturnKeyAutomatically={true}
@@ -153,6 +142,16 @@ const AddResource = function ({ navigation }) {
         </View>
       </View>
 
+      <Text style={styles.label}>Contact</Text>
+      <TextInput
+        style={styles.textInput}
+        value={item.contact}
+        onChangeText={(t) => setItem({ ...item, contact: t})}
+        onSubmitEditing={sendItem}
+        returnKeyType='send'
+        enablesReturnKeyAutomatically={true}
+        placeholder='user@domain.com'
+      />
       <Text style={styles.label}>Name</Text>
       <TextInput
         style={styles.textInput}
@@ -164,17 +163,7 @@ const AddResource = function ({ navigation }) {
         placeholder='e.g., Tomotatoes'
         blurOnSubmit={false}
       />
-      <Text style={styles.label}>Contact</Text>
-      <TextInput
-        style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
-        onSubmitEditing={sendItem}
-        returnKeyType='send'
-        enablesReturnKeyAutomatically={true}
-        placeholder='user@domain.com'
-      />
-      <Text style={styles.label}>Description</Text>
+      <Text style={styles.label}>Card number</Text>
       <TextInput
         style={styles.textInput}
         value={item.description}
@@ -182,7 +171,7 @@ const AddResource = function ({ navigation }) {
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
-        placeholder='e.g., cans of tomatoes'
+        placeholder='1111 1111 1111 1111'
       />
       <Text style={styles.label}>Location</Text>
       <View style={styles.checkboxContainer}>
@@ -210,8 +199,7 @@ const AddResource = function ({ navigation }) {
 
       {
         item.type !== '' &&
-        item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
+        item.contact !== '' &&
         <TouchableOpacity onPress={sendItem}>
           <Text style={styles.button}>Add</Text>
         </TouchableOpacity>
@@ -220,4 +208,4 @@ const AddResource = function ({ navigation }) {
   );
 };
 
-export default AddResource;
+export default AddMoneyResource;

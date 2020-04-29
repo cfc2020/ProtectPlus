@@ -123,7 +123,6 @@ const SearchResources = function ({ route, navigation }) {
           onValueChange={(t) => setQuery({ ...query, type: t })}
           items={[
               { label: 'Food', value: 'Food' },
-              { label: 'Help', value: 'Help' },
               { label: 'Other', value: 'Other' }
           ]}
         />

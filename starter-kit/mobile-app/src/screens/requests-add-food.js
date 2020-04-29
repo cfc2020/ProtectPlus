@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const AddResource = function ({ navigation }) {
+const AddFoodRequest = function ({ navigation }) {
   const clearItem = { userID: userID(), type: 'Food', name: '', description: '', location: '', contact: '', quantity: '1' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
@@ -220,4 +221,4 @@ const AddResource = function ({ navigation }) {
   );
 };
 
-export default AddResource;
+export default AddFoodRequest;
