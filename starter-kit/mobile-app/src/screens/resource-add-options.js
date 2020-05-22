@@ -52,10 +52,16 @@ const AddResourceOptions = function ({ navigation }) {
   const [items, setItems] = React.useState([]);
 
     const _onPress = (item) => {
-        if (item.key=='Food') {
+        if (item.key=='Meals') {
             navigation.navigate('Add Food Donation');
         } else if (item.key=='Money') {
             navigation.navigate('Add Money Donation');
+        } else if (item.key=='Medical Supplies') {
+            navigation.navigate('Add Medical Donation');
+        } else if (item.key=='Sleeping Quarters') {
+            navigation.navigate('Add Sleeping Quarters Donation');
+        } else if (item.key=='Entertainment Devices') {
+            navigation.navigate('Add Entertainment Devices Donation');
         };
     };
   React.useEffect(() => {
@@ -72,9 +78,11 @@ const AddResourceOptions = function ({ navigation }) {
     return (
        <FlatList style={styles.flatListView}
         data={[
-               { key: 'Food', title: 'Food'},
-        { key: 'Money', title: 'Money'},
-        { key: 'Other', title: 'Other'}
+        { key: 'Medical Supplies', title: 'Medical Supplies'},
+        { key: 'Sleeping Quarters', title: 'Sleeping Quarters'},
+        { key: 'Entertainment Devices', title: 'Entertainment Devices'},
+        { key: 'Meals', title: 'Meals'},
+        { key: 'Money', title: 'Money'}
         ]}
         renderItem={({item}) => (
           <TouchableHighlight style={styles.itemTouchable}

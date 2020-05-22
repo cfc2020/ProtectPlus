@@ -14,7 +14,10 @@ import SearchResources from './src/screens/resources-search';
 import AddResource from './src/screens/resource-add';
 import AddResourceOptions from './src/screens/resource-add-options';
 import AddRequestOptions from './src/screens/requests-add-options';
+import AddMedicalResource from './src/screens/resource-add-medical-supplies';
+import AddSleepingQuartersResource from './src/screens/resource-add-sleeping-quarters';
 import AddMoneyResource from './src/screens/resource-add-money';
+import AddEntertainmentResource from './src/screens/resource-add-entertainment-devices';
 import MyRequests from './src/screens/requests-my';
 import AddFoodRequest from './src/screens/requests-add-food';
 import EditResource from './src/screens/resource-edit';
@@ -113,6 +116,9 @@ const DonateStackLayout = () => (
     <Stack.Screen name='Add Donation Options' component={AddResourceOptions} />
     <Stack.Screen name='Add Food Donation' component={AddResource} />
     <Stack.Screen name='Add Money Donation' component={AddMoneyResource} />
+    <Stack.Screen name='Add Medical Donation' component={AddMedicalResource} />
+    <Stack.Screen name='Add Sleeping Quarters Donation' component={AddSleepingQuartersResource} />
+    <Stack.Screen name='Add Entertainment Devices Donation' component={AddEntertainmentResource} />
     <Stack.Screen name='Edit Donation' component={EditResource} />
   </Stack.Navigator>
 );
