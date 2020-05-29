@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 });
 
 const AddFoodRequest = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Food', name: '', description: '', location: '', contact: '', quantity: '1' }
+  const clearItem = { userID: userID(), type: 'Food', meal: '', name: '', description: '', location: '', contact: '', quantity: '1' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
@@ -125,33 +125,30 @@ const AddFoodRequest = function ({ navigation }) {
   
   return (
     <ScrollView style={styles.outerView}>
-      <View style={styles.splitView}>
-        <View style={styles.typeArea}>
-          <Text style={styles.label}>Type</Text>
-          <PickerSelect
-            style={{ inputIOS: styles.selector }}
-            value={item.type}
-            onValueChange={(t) => setItem({ ...item, type: t })}
-            items={[
-                { label: 'Food', value: 'Food' },
-                { label: 'Help', value: 'Help' },
-                { label: 'Other', value: 'Other' }
-            ]}
-          />
-        </View>
-        <View style={styles.quantityArea}>
-          <Text style={styles.label}>Quantity</Text>
-          <TextInput
-            style={styles.textInput}
-            value={item.quantity}
-            onChangeText={(t) => setItem({ ...item, quantity: t})}
-            onSubmitEditing={sendItem}
-            returnKeyType='send'
-            enablesReturnKeyAutomatically={true}
-            placeholder='e.g., 10'
-            keyboardType='numeric'
-          />
-        </View>
+      <View style={styles.typeArea}>
+        <Text style={styles.label}>Meal Name</Text>
+        <TextInput
+          style={styles.textInput}
+          value={item.meal}
+          onChangeText={(t) => setItem({ ...item, meal: t})}
+          onSubmitEditing={sendItem}
+          returnKeyType='send'
+          enablesReturnKeyAutomatically={true}
+          placeholder='e.g. sushi'
+        />
+      </View>
+      <View style={styles.quantityArea}>
+        <Text style={styles.label}>Quantity</Text>
+        <TextInput
+          style={styles.textInput}
+          value={item.quantity}
+          onChangeText={(t) => setItem({ ...item, quantity: t})}
+          onSubmitEditing={sendItem}
+          returnKeyType='send'
+          enablesReturnKeyAutomatically={true}
+          placeholder='e.g., 10'
+          keyboardType='numeric'
+        />
       </View>
 
       <Text style={styles.label}>Name</Text>

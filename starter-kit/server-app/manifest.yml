@@ -1,5 +1,5 @@
 applications:
-- name: my-cfc-prototype
+- name: protectplus
   command: npm start
   path: .
   memory: 256M

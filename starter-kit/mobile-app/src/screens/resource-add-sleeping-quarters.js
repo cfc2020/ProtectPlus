@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
 });
 
 const AddSleepingQuartersResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Sleeping Quarters', address: '', numberOfPeople: '', name: '', start: '', end: '', description: '', location: '', contact: '' }
+  const clearItem = { userID: userID(), type: 'Sleeping Quarters', name: '', numberOfPeople: '', contactEmail: '', start: '', end: '', description: '', location: '', contactEmail: '' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
-    
+
   React.useEffect(() => {
     navigation.addListener('focus', () => {
       Geolocation.getCurrentPosition((pos) => {
@@ -120,19 +120,19 @@ const AddSleepingQuartersResource = function ({ navigation }) {
       })
       .catch(err => {
         console.log(err);
-        Alert.alert('ERROR', 'Please try again. If the problem persists contact an administrator.', [{text: 'OK'}]);
+        Alert.alert('ERROR', 'Please try again. If the problem persists contactEmail an administrator.', [{text: 'OK'}]);
       });
   };
 
-  
+
   return (
     <ScrollView style={styles.outerView}>
     <View>
       <Text style={styles.label}>Street Address</Text>
       <TextInput
         style={styles.textInput}
-        value={item.address}
-        onChangeText={(t) => setItem({ ...item, address: t})}
+        value={item.name}
+        onChangeText={(t) => setItem({ ...item, name: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -154,7 +154,7 @@ const AddSleepingQuartersResource = function ({ navigation }) {
     </View>
         <View style={styles.splitView}>
         <View style={styles.quantityArea}>
-          <Text style={styles.label}>Start Date/Time</Text>
+          <Text style={styles.label}>Start Date Time</Text>
             <TextInput
               style={styles.textInput}
               value={item.start}
@@ -162,11 +162,11 @@ const AddSleepingQuartersResource = function ({ navigation }) {
               onSubmitEditing={sendItem}
               returnKeyType='send'
               enablesReturnKeyAutomatically={true}
-              placeholder='e.g., 02/03/2020'
+              placeholder='e.g., 02-03-2020'
             />
         </View>
         <View style={styles.quantityArea}>
-          <Text style={styles.label}>End Date/Time</Text>
+          <Text style={styles.label}>End Date Time</Text>
             <TextInput
               style={styles.textInput}
               value={item.end}
@@ -174,16 +174,16 @@ const AddSleepingQuartersResource = function ({ navigation }) {
               onSubmitEditing={sendItem}
               returnKeyType='send'
               enablesReturnKeyAutomatically={true}
-              placeholder='e.g., 02/03/2020'
+              placeholder='e.g., 02-03-2020'
             />
         </View>
       </View>
-        
+
       <Text style={styles.label}>Contact Name</Text>
       <TextInput
         style={styles.textInput}
-        value={item.name}
-        onChangeText={(t) => setItem({ ...item, name: t})}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -193,8 +193,8 @@ const AddSleepingQuartersResource = function ({ navigation }) {
       <Text style={styles.label}>Contact</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -236,8 +236,8 @@ const AddSleepingQuartersResource = function ({ navigation }) {
 
       {
         item.type !== '' &&
-        item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
         <TouchableOpacity onPress={sendItem}>
           <Text style={styles.button}>Add</Text>
         </TouchableOpacity>

@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
   }
 });
 
-const AddResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Food', name: '', description: '', location: '', contact: '', quantity: '1' }
+const AddFoodResource = function ({ navigation }) {
+  const clearItem = { userID: userID(), type: 'Food', name: '', contactName: '', description: '', location: '', contactEmail: '', quantity: '1' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
-    
+
   React.useEffect(() => {
     navigation.addListener('focus', () => {
       Geolocation.getCurrentPosition((pos) => {
@@ -121,39 +121,11 @@ const AddResource = function ({ navigation }) {
         Alert.alert('ERROR', 'Please try again. If the problem persists contact an administrator.', [{text: 'OK'}]);
       });
   };
-  
-  return (
-    <ScrollView style={styles.outerView}>
-      <View style={styles.splitView}>
-        <View style={styles.typeArea}>
-          <Text style={styles.label}>Type</Text>
-          <PickerSelect
-            style={{ inputIOS: styles.selector }}
-            value={item.type}
-            onValueChange={(t) => setItem({ ...item, type: t })}
-            items={[
-                { label: 'Food', value: 'Food' },
-                { label: 'Help', value: 'Help' },
-                { label: 'Other', value: 'Other' }
-            ]}
-          />
-        </View>
-        <View style={styles.quantityArea}>
-          <Text style={styles.label}>Quantity</Text>
-          <TextInput
-            style={styles.textInput}
-            value={item.quantity}
-            onChangeText={(t) => setItem({ ...item, quantity: t})}
-            onSubmitEditing={sendItem}
-            returnKeyType='send'
-            enablesReturnKeyAutomatically={true}
-            placeholder='e.g., 10'
-            keyboardType='numeric'
-          />
-        </View>
-      </View>
 
-      <Text style={styles.label}>Name</Text>
+  return (
+  <ScrollView style={styles.outerView}>
+    <View style={styles.typeArea}>
+      <Text style={styles.label}>Meal</Text>
       <TextInput
         style={styles.textInput}
         value={item.name}
@@ -161,14 +133,39 @@ const AddResource = function ({ navigation }) {
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
-        placeholder='e.g., Tomotatoes'
-        blurOnSubmit={false}
+        placeholder='e.g. sushi'
       />
-      <Text style={styles.label}>Contact</Text>
+    </View>
+      <View style={styles.quantityArea}>
+        <Text style={styles.label}>Quantity</Text>
+        <TextInput
+          style={styles.textInput}
+          value={item.quantity}
+          onChangeText={(t) => setItem({ ...item, quantity: t})}
+          onSubmitEditing={sendItem}
+          returnKeyType='send'
+          enablesReturnKeyAutomatically={true}
+          placeholder='e.g., 10'
+          keyboardType='numeric'
+        />
+      </View>
+
+      <Text style={styles.label}>Contact Name</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
+        onSubmitEditing={sendItem}
+        returnKeyType='send'
+        enablesReturnKeyAutomatically={true}
+        placeholder='e.g., Sally'
+        blurOnSubmit={false}
+      />
+      <Text style={styles.label}>Contact Email</Text>
+      <TextInput
+        style={styles.textInput}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -211,7 +208,8 @@ const AddResource = function ({ navigation }) {
       {
         item.type !== '' &&
         item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
+        item.contactName.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
         <TouchableOpacity onPress={sendItem}>
           <Text style={styles.button}>Add</Text>
         </TouchableOpacity>
@@ -220,4 +218,4 @@ const AddResource = function ({ navigation }) {
   );
 };
 
-export default AddResource;
+export default AddFoodResource;

@@ -41,7 +41,7 @@ app.get('/api/session', (req, res) => {
  * look up in the Cloudant DB whether any of the requested resources are
  * available. If so, we insert a list of the resouces found into the response
  * that will sent back to the client.
- * 
+ *
  * We also modify the text response to match the above.
  */
 function post_process_assistant(result) {
@@ -76,7 +76,7 @@ function post_process_assistant(result) {
           processed_result["resources"] = JSON.parse(data.data)
           processed_result["generic"][0]["text"] = 'There is' + '\xa0' + resource + " available"
         } else {
-          processed_result["generic"][0]["text"] = "Sorry, no" + '\xa0' + resource + " available"           
+          processed_result["generic"][0]["text"] = "Sorry, no" + '\xa0' + resource + " available"
         }
         return processed_result
       })
@@ -87,7 +87,7 @@ function post_process_assistant(result) {
  * Post a messge to Watson Assistant
  *
  * The body must contain:
- * 
+ *
  * - Message text
  * - sessionID (previsoulsy obtained by called /api/session)
  */
@@ -110,7 +110,7 @@ app.post('/api/message', (req, res) => {
  * Get a list of resources
  *
  * The query string may contain the following qualifiers:
- * 
+ *
  * - type
  * - name
  * - userID
@@ -137,20 +137,20 @@ app.get('/api/resource', (req, res) => {
  * Create a new resource
  *
  * The body must contain:
- * 
+ *
  * - type
  * - name
  * - contact
  * - userID
  *
  * The body may also contain:
- * 
+ *
  * - description
  * - quantity (which will default to 1 if not included)
- * 
+ *
  * The ID and rev of the resource will be returned if successful
  */
-let types = ["Food", "Other", "Help"]
+let types = ["Medical Supplies", "Entertainment Device", "Money", "Food", "Sleeping Quarters"]
 app.post('/api/resource', (req, res) => {
   if (!req.body.type) {
     return res.status(422).json({ errors: "Type of item must be provided"});
@@ -161,7 +161,7 @@ app.post('/api/resource', (req, res) => {
   if (!req.body.name) {
     return res.status(422).json({ errors: "Name of item must be provided"});
   }
-  if (!req.body.contact) {
+  if (!req.body.contactEmail) {
     return res.status(422).json({ errors: "A method of conact must be provided"});
   }
   const type = req.body.type;
@@ -170,10 +170,10 @@ app.post('/api/resource', (req, res) => {
   const userID = req.body.userID || '';
   const quantity = req.body.quantity || 1;
   const location = req.body.location || '';
-  const contact = req.body.contact;
+  const contactEmail = req.body.contactEmail;
 
   cloudant
-    .create(type, name, description, quantity, location, contact, userID)
+    .create(type, name, description, quantity, location, contactEmail, userID)
     .then(data => {
       if (data.statusCode != 201) {
         res.sendStatus(data.statusCode)
@@ -189,7 +189,7 @@ app.post('/api/resource', (req, res) => {
  *
  * The body may contain any of the valid attributes, with their new values. Attributes
  * not included will be left unmodified.
- * 
+ *
  * The new rev of the resource will be returned if successful
  */
 

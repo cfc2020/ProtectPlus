@@ -1,3 +1,4 @@
+// TODO: Delete
 
 import React from 'react';
 import { StyleSheet, FlatList, View, Text, TouchableOpacity, Alert } from 'react-native';

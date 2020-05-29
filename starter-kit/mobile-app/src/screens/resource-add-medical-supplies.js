@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
 });
 
 const AddMedicalResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Medical Supplies', product: '', name: '', description: '', location: '', contact: '', quantity: '1' }
+  const clearItem = { userID: userID(), type: 'Medical Supplies', name: '', contactName: '', description: '', location: '', contactEmail: '', quantity: '1' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
-    
+
   React.useEffect(() => {
     navigation.addListener('focus', () => {
       Geolocation.getCurrentPosition((pos) => {
@@ -118,19 +118,19 @@ const AddMedicalResource = function ({ navigation }) {
       })
       .catch(err => {
         console.log(err);
-        Alert.alert('ERROR', 'Please try again. If the problem persists contact an administrator.', [{text: 'OK'}]);
+        Alert.alert('ERROR', 'Please try again. If the problem persists contactEmail an administrator.', [{text: 'OK'}]);
       });
   };
-  
+
   return (
     <ScrollView style={styles.outerView}>
       <View style={styles.splitView}>
         <View style={styles.typeArea}>
-          <Text style={styles.label}>Product</Text>
+          <Text style={styles.label}>Name</Text>
           <TextInput
             style={styles.textInput}
-            value={item.product}
-            onChangeText={(t) => setItem({ ...item, Type: t})}
+            value={item.name}
+            onChangeText={(t) => setItem({ ...item, name: t})}
             onSubmitEditing={sendItem}
             returnKeyType='send'
             enablesReturnKeyAutomatically={true}
@@ -155,19 +155,19 @@ const AddMedicalResource = function ({ navigation }) {
       <Text style={styles.label}>Contact Name</Text>
       <TextInput
         style={styles.textInput}
-        value={item.name}
-        onChangeText={(t) => setItem({ ...item, name: t})}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
         placeholder='e.g. Sally'
         blurOnSubmit={false}
       />
-      <Text style={styles.label}>Contact</Text>
+      <Text style={styles.label}>Contact Email</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -210,7 +210,8 @@ const AddMedicalResource = function ({ navigation }) {
       {
         item.type !== '' &&
         item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
+        item.contactName.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
         <TouchableOpacity onPress={sendItem}>
           <Text style={styles.button}>Add</Text>
         </TouchableOpacity>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, FlatList, View, Text, TouchableOpacity, Alert, TouchableHighlight } from 'react-native';
-import AddResource from './resource-add';
 
 import { search, userID } from '../lib/utils';
 

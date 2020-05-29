@@ -11,7 +11,7 @@ import LoadingScreen from './src/screens/loading';
 import Home from './src/screens/home';
 import Chat from './src/screens/chat';
 import SearchResources from './src/screens/resources-search';
-import AddResource from './src/screens/resource-add';
+import AddFoodResource from './src/screens/resource-add-food';
 import AddResourceOptions from './src/screens/resource-add-options';
 import AddRequestOptions from './src/screens/requests-add-options';
 import AddMedicalResource from './src/screens/resource-add-medical-supplies';
@@ -114,7 +114,7 @@ const DonateStackLayout = () => (
   <Stack.Navigator>
   <Stack.Screen name='My Donations' component={MyResources} options={DonationsStackOptions} />
     <Stack.Screen name='Add Donation Options' component={AddResourceOptions} />
-    <Stack.Screen name='Add Food Donation' component={AddResource} />
+    <Stack.Screen name='Add Food Donation' component={AddFoodResource} />
     <Stack.Screen name='Add Money Donation' component={AddMoneyResource} />
     <Stack.Screen name='Add Medical Donation' component={AddMedicalResource} />
     <Stack.Screen name='Add Sleeping Quarters Donation' component={AddSleepingQuartersResource} />

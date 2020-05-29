@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
 });
 
 const AddEntertainmentResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Entertainment Device', name: '', description: '', location: '', contact: '', quantity: '1' }
+  const clearItem = { userID: userID(), type: 'Entertainment Device', name: '', contactName: '', description: '', location: '', contactEmail: '', quantity: '1' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
-    
+
   React.useEffect(() => {
     navigation.addListener('focus', () => {
       Geolocation.getCurrentPosition((pos) => {
@@ -121,39 +121,51 @@ const AddEntertainmentResource = function ({ navigation }) {
         Alert.alert('ERROR', 'Please try again. If the problem persists contact an administrator.', [{text: 'OK'}]);
       });
   };
-  
+
   return (
     <ScrollView style={styles.outerView}>
-        <View style={styles.quantityArea}>
-          <Text style={styles.label}>Quantity</Text>
-          <TextInput
-            style={styles.textInput}
-            value={item.quantity}
-            onChangeText={(t) => setItem({ ...item, quantity: t})}
-            onSubmitEditing={sendItem}
-            returnKeyType='send'
-            enablesReturnKeyAutomatically={true}
-            placeholder='e.g., 2'
-            keyboardType='numeric'
-          />
-        </View>
+      <View style={styles.typeArea}>
+        <Text style={styles.label}>Meal</Text>
+        <TextInput
+          style={styles.textInput}
+          value={item.name}
+          onChangeText={(t) => setItem({ ...item, name: t})}
+          onSubmitEditing={sendItem}
+          returnKeyType='send'
+          enablesReturnKeyAutomatically={true}
+          placeholder='e.g. sushi'
+        />
+      </View>
+      <View style={styles.quantityArea}>
+        <Text style={styles.label}>Quantity</Text>
+        <TextInput
+          style={styles.textInput}
+          value={item.quantity}
+          onChangeText={(t) => setItem({ ...item, quantity: t})}
+          onSubmitEditing={sendItem}
+          returnKeyType='send'
+          enablesReturnKeyAutomatically={true}
+          placeholder='e.g., 2'
+          keyboardType='numeric'
+        />
+      </View>
 
-      <Text style={styles.label}>Name</Text>
+      <Text style={styles.label}>Contact Name</Text>
       <TextInput
         style={styles.textInput}
-        value={item.name}
-        onChangeText={(t) => setItem({ ...item, name: t})}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
         placeholder='e.g., iPad, pack of cards'
         blurOnSubmit={false}
       />
-      <Text style={styles.label}>Contact</Text>
+      <Text style={styles.label}>Contact Email</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -196,7 +208,8 @@ const AddEntertainmentResource = function ({ navigation }) {
       {
         item.type !== '' &&
         item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
+        item.contactName.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
         <TouchableOpacity onPress={sendItem}>
           <Text style={styles.button}>Add</Text>
         </TouchableOpacity>
