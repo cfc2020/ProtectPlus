@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 });
 
 const AddEntertainmentResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Entertainment Device', name: '', contactName: '', description: '', location: '', contactEmail: '', quantity: '1' }
+  const clearItem = { userID: userID(), type: 'Entertainment', name: '', contactName: '', description: '', location: '', contactEmail: '', quantity: '1' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
@@ -125,7 +125,7 @@ const AddEntertainmentResource = function ({ navigation }) {
   return (
     <ScrollView style={styles.outerView}>
       <View style={styles.typeArea}>
-        <Text style={styles.label}>Meal</Text>
+        <Text style={styles.label}>Product Name</Text>
         <TextInput
           style={styles.textInput}
           value={item.name}
@@ -133,7 +133,7 @@ const AddEntertainmentResource = function ({ navigation }) {
           onSubmitEditing={sendItem}
           returnKeyType='send'
           enablesReturnKeyAutomatically={true}
-          placeholder='e.g. sushi'
+          placeholder='e.g. used ipad, pack of cards, book'
         />
       </View>
       <View style={styles.quantityArea}>
@@ -158,7 +158,7 @@ const AddEntertainmentResource = function ({ navigation }) {
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
-        placeholder='e.g., iPad, pack of cards'
+        placeholder='e.g. John'
         blurOnSubmit={false}
       />
       <Text style={styles.label}>Contact Email</Text>
@@ -179,7 +179,7 @@ const AddEntertainmentResource = function ({ navigation }) {
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
-        placeholder='e.g., used android tablet'
+        placeholder='e.g., fiction suspense thriller story book'
       />
       <Text style={styles.label}>Location</Text>
       <View style={styles.checkboxContainer}>

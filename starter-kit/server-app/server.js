@@ -150,7 +150,7 @@ app.get('/api/resource', (req, res) => {
  *
  * The ID and rev of the resource will be returned if successful
  */
-let types = ["Medical Supplies", "Entertainment Device", "Money", "Food", "Sleeping Quarters"]
+let types = ["Medical Supplies", "Entertainment", "Money", "Meals", "Sleeping Quarters"]
 app.post('/api/resource', (req, res) => {
   if (!req.body.type) {
     return res.status(422).json({ errors: "Type of item must be provided"});
@@ -170,10 +170,11 @@ app.post('/api/resource', (req, res) => {
   const userID = req.body.userID || '';
   const quantity = req.body.quantity || 1;
   const location = req.body.location || '';
+  const contactName = req.body.contactName;
   const contactEmail = req.body.contactEmail;
 
   cloudant
-    .create(type, name, description, quantity, location, contactEmail, userID)
+    .create(type, name, description, quantity, location, contactName, contactEmail, userID)
     .then(data => {
       if (data.statusCode != 201) {
         res.sendStatus(data.statusCode)

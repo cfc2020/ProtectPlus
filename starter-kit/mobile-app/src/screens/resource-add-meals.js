@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -76,12 +75,12 @@ const styles = StyleSheet.create({
   }
 });
 
-const AddFoodRequest = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Food', meal: '', name: '', description: '', location: '', contact: '', quantity: '1' }
+const AddMealsResource = function ({ navigation }) {
+  const clearItem = { userID: userID(), type: 'Meals', name: '', contactName: '', description: '', location: '', contactEmail: '', quantity: '1' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
-    
+
   React.useEffect(() => {
     navigation.addListener('focus', () => {
       Geolocation.getCurrentPosition((pos) => {
@@ -122,21 +121,21 @@ const AddFoodRequest = function ({ navigation }) {
         Alert.alert('ERROR', 'Please try again. If the problem persists contact an administrator.', [{text: 'OK'}]);
       });
   };
-  
+
   return (
-    <ScrollView style={styles.outerView}>
-      <View style={styles.typeArea}>
-        <Text style={styles.label}>Meal Name</Text>
-        <TextInput
-          style={styles.textInput}
-          value={item.meal}
-          onChangeText={(t) => setItem({ ...item, meal: t})}
-          onSubmitEditing={sendItem}
-          returnKeyType='send'
-          enablesReturnKeyAutomatically={true}
-          placeholder='e.g. sushi'
-        />
-      </View>
+  <ScrollView style={styles.outerView}>
+    <View style={styles.typeArea}>
+      <Text style={styles.label}>Meal</Text>
+      <TextInput
+        style={styles.textInput}
+        value={item.name}
+        onChangeText={(t) => setItem({ ...item, name: t})}
+        onSubmitEditing={sendItem}
+        returnKeyType='send'
+        enablesReturnKeyAutomatically={true}
+        placeholder='e.g. sushi'
+      />
+    </View>
       <View style={styles.quantityArea}>
         <Text style={styles.label}>Quantity</Text>
         <TextInput
@@ -151,22 +150,22 @@ const AddFoodRequest = function ({ navigation }) {
         />
       </View>
 
-      <Text style={styles.label}>Name</Text>
+      <Text style={styles.label}>Contact Name</Text>
       <TextInput
         style={styles.textInput}
-        value={item.name}
-        onChangeText={(t) => setItem({ ...item, name: t})}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
-        placeholder='e.g., Tomotatoes'
+        placeholder='e.g., Sally'
         blurOnSubmit={false}
       />
-      <Text style={styles.label}>Contact</Text>
+      <Text style={styles.label}>Contact Email</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -209,7 +208,8 @@ const AddFoodRequest = function ({ navigation }) {
       {
         item.type !== '' &&
         item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
+        item.contactName.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
         <TouchableOpacity onPress={sendItem}>
           <Text style={styles.button}>Add</Text>
         </TouchableOpacity>
@@ -218,4 +218,4 @@ const AddFoodRequest = function ({ navigation }) {
   );
 };
 
-export default AddFoodRequest;
+export default AddMealsResource;

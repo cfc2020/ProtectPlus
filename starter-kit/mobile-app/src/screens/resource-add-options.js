@@ -52,15 +52,15 @@ const AddResourceOptions = function ({ navigation }) {
 
     const _onPress = (item) => {
         if (item.key=='Meals') {
-            navigation.navigate('Add Food Donation');
+            navigation.navigate('Add Meals Donation');
         } else if (item.key=='Money') {
             navigation.navigate('Add Money Donation');
         } else if (item.key=='Medical Supplies') {
             navigation.navigate('Add Medical Donation');
         } else if (item.key=='Sleeping Quarters') {
             navigation.navigate('Add Sleeping Quarters Donation');
-        } else if (item.key=='Entertainment Devices') {
-            navigation.navigate('Add Entertainment Devices Donation');
+        } else if (item.key=='Entertainment') {
+            navigation.navigate('Add Entertainment Donation');
         };
     };
   React.useEffect(() => {
@@ -73,13 +73,13 @@ const AddResourceOptions = function ({ navigation }) {
         });
     })
   }, []);
-  
+
     return (
        <FlatList style={styles.flatListView}
         data={[
         { key: 'Medical Supplies', title: 'Medical Supplies'},
         { key: 'Sleeping Quarters', title: 'Sleeping Quarters'},
-        { key: 'Entertainment Devices', title: 'Entertainment Devices'},
+        { key: 'Entertainment', title: 'Entertainment'},
         { key: 'Meals', title: 'Meals'},
         { key: 'Money', title: 'Money'}
         ]}
@@ -97,4 +97,4 @@ const AddResourceOptions = function ({ navigation }) {
   }
 
 export default AddResourceOptions;
-            
+

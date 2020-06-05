@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 });
 
 const SearchResources = function ({ route, navigation }) {
-  const [query, setQuery] = React.useState({ type: 'Food', name: '' });
+  const [query, setQuery] = React.useState({ type: 'Money', name: '' });
   const [items, setItems] = React.useState([]);
   const [info, setInfo] = React.useState('');
 
@@ -122,8 +122,11 @@ const SearchResources = function ({ route, navigation }) {
           value={query.type}
           onValueChange={(t) => setQuery({ ...query, type: t })}
           items={[
-              { label: 'Food', value: 'Food' },
-              { label: 'Other', value: 'Other' }
+              { label: 'Medical Supplies', value: 'Medical Supplies' },
+              { label: 'Sleeping Quarters', value: 'Sleeping Quarters' },
+              { label: 'Entertainment', value: 'Entertainment'},
+              { label: 'Meals', value: 'Meals'},
+              { label: 'Money', value: 'Money'}
           ]}
         />
         <Text style={styles.label}>Name</Text>

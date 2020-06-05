@@ -111,7 +111,6 @@ const AddMoneyResource = function ({ navigation }) {
       amount: isNaN(item.amount) ? 1 : parseInt(item.amount)
     };
 
-    setItem({ item, type: 'money' })
     add(payload)
       .then(() => {
         Alert.alert('Thank you!', 'Your item has been added.', [{text: 'OK'}]);
@@ -140,8 +139,18 @@ const AddMoneyResource = function ({ navigation }) {
           />
         </View>
       </View>
-
-      <Text style={styles.label}>Contact</Text>
+      <Text style={styles.label}>Contact Name</Text>
+      <TextInput
+        style={styles.textInput}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
+        onSubmitEditing={sendItem}
+        returnKeyType='send'
+        enablesReturnKeyAutomatically={true}
+        placeholder='e.g., Tessa'
+        blurOnSubmit={false}
+      />
+      <Text style={styles.label}>Contact Email</Text>
       <TextInput
         style={styles.textInput}
         value={item.contactEmail}
@@ -151,17 +160,7 @@ const AddMoneyResource = function ({ navigation }) {
         enablesReturnKeyAutomatically={true}
         placeholder='user@domain.com'
       />
-      <Text style={styles.label}>Name</Text>
-      <TextInput
-        style={styles.textInput}
-        value={item.contactName}
-        onChangeText={(t) => setItem({ ...item, contactName: t})}
-        onSubmitEditing={sendItem}
-        returnKeyType='send'
-        enablesReturnKeyAutomatically={true}
-        placeholder='e.g., Tomotatoes'
-        blurOnSubmit={false}
-      />
+
       <Text style={styles.label}>Card number</Text>
       <TextInput
         style={styles.textInput}
@@ -198,6 +197,7 @@ const AddMoneyResource = function ({ navigation }) {
 
       {
         item.type !== '' &&
+        item.name.trim() !== '' &&
         item.contactName.trim() !== '' &&
         item.contactEmail.trim() !== '' &&
         <TouchableOpacity onPress={sendItem}>

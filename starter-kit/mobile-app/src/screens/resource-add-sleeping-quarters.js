@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 });
 
 const AddSleepingQuartersResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Sleeping Quarters', name: '', numberOfPeople: '', contactEmail: '', start: '', end: '', description: '', location: '', contactEmail: '' }
+  const clearItem = { userID: userID(), type: 'Sleeping Quarters', name: '', numberOfPeople: '', contactName: '', start: '', end: '', description: '', location: '', contactEmail: '' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
@@ -182,8 +182,8 @@ const AddSleepingQuartersResource = function ({ navigation }) {
       <Text style={styles.label}>Contact Name</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contactEmail}
-        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
