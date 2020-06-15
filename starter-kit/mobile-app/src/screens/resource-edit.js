@@ -293,7 +293,7 @@ const EditResource = (props) => {
 
       {
         item.type !== '' &&
-        item.name.trim() !== ''
+        item.name.trim() !== '' &&
         <TouchableOpacity onPress={updateItem}>
           <Text style={styles.updateButton}>Update</Text>
         </TouchableOpacity>

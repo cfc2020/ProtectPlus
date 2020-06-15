@@ -7,6 +7,8 @@ const assistant = require('./lib/assistant.js');
 const port = process.env.PORT || 3000
 
 const cloudant = require('./lib/cloudant.js');
+const utils = require('./lib/utils.js');
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -164,17 +166,19 @@ app.post('/api/resource', (req, res) => {
   if (!req.body.contactEmail) {
     return res.status(422).json({ errors: "A method of conact must be provided"});
   }
-  const type = req.body.type;
-  const name = req.body.name;
-  const description = req.body.description || '';
-  const userID = req.body.userID || '';
-  const quantity = req.body.quantity || 1;
-  const location = req.body.location || '';
-  const contactName = req.body.contactName;
-  const contactEmail = req.body.contactEmail;
+  // const type = req.body.type;
+  // const name = req.body.name;
+  // const description = req.body.description || '';
+  // const userID = req.body.userID || '';
+  // const quantity = req.body.quantity || 1;
+  // const location = req.body.location || '';
+  // const contactName = req.body.contactName;
+  // const contactEmail = req.body.contactEmail;
+
+  const item = utils.parseRequestBody(req.body)
 
   cloudant
-    .create(type, name, description, quantity, location, contactName, contactEmail, userID)
+    .create(item)
     .then(data => {
       if (data.statusCode != 201) {
         res.sendStatus(data.statusCode)
@@ -183,6 +187,8 @@ app.post('/api/resource', (req, res) => {
       }
     })
     .catch(err => handleError(res, err));
+
+  
 });
 
 /**
@@ -195,16 +201,18 @@ app.post('/api/resource', (req, res) => {
  */
 
 app.patch('/api/resource/:id', (req, res) => {
-  const type = req.body.type || '';
-  const name = req.body.name || '';
-  const description = req.body.description || '';
-  const userID = req.body.userID || '';
-  const quantity = req.body.quantity || '';
-  const location = req.body.location || '';
-  const contact = req.body.contact || '';
+  // const type = req.body.type || '';
+  // const name = req.body.name || '';
+  // const description = req.body.description || '';
+  // const userID = req.body.userID || '';
+  // const quantity = req.body.quantity || '';
+  // const location = req.body.location || '';
+  // const contact = req.body.contact || '';
+
+  const item = utils.parseRequestBody(req.body, req.params.id)
 
   cloudant
-    .update(req.params.id, type, name, description, quantity, location, contact, userID)
+    .update(item)
     .then(data => {
       if (data.statusCode != 200) {
         res.sendStatus(data.statusCode)
@@ -230,3 +238,5 @@ const server = app.listen(port, () => {
    const port = server.address().port;
    console.log(`SolutionStarterKitCooperationServer listening at http://${host}:${port}`);
 });
+
+

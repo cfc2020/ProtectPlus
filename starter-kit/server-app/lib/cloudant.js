@@ -3,9 +3,6 @@ const Cloudant = require('@cloudant/cloudant');
 const cloudant_id = process.env.CLOUDANT_ID || '<cloudant_id>'
 const cloudant_apikey = process.env.CLOUDANT_IAM_APIKEY || '<cloudant_apikey>';
 
-// UUID creation
-const uuidv4 = require('uuid/v4');
-
 var cloudant = new Cloudant({
     account: cloudant_id,
     plugins: {
@@ -151,22 +148,8 @@ function deleteById(id, rev) {
  * @return {Promise} - promise that will be resolved (or rejected)
  * when the call to the DB completes
  */
-function create(type, name, description, quantity, location, contact, userID) {
+function create(item) {
     return new Promise((resolve, reject) => {
-        let itemId = uuidv4();
-        let whenCreated = Date.now();
-        let item = {
-            _id: itemId,
-            id: itemId,
-            type: type,
-            name: name,
-            description: description,
-            quantity: quantity,
-            location: location,
-            contact: contact,
-            userID: userID,
-            whenCreated: whenCreated
-        };
         db.insert(item, (err, result) => {
             if (err) {
                 console.log('Error occurred: ' + err.message, 'create()');
@@ -196,25 +179,14 @@ function create(type, name, description, quantity, location, contact, userID) {
  * @return {Promise} - promise that will be resolved (or rejected)
  * when the call to the DB completes
  */
-function update(id, type, name, description, quantity, location, contact, userID) {
+function update(updatedItem) {
     return new Promise((resolve, reject) => {
         db.get(id, (err, document) => {
             if (err) {
                 resolve({statusCode: err.statusCode});
             } else {
-                let item = {
-                    _id: document._id,
-                    _rev: document._rev,            // Specifiying the _rev turns this into an update
-                }
-                if (type) {item["type"] = type} else {item["type"] = document.type};
-                if (name) {item["name"] = name} else {item["name"] = document.name};
-                if (description) {item["description"] = description} else {item["description"] = document.description};
-                if (quantity) {item["quantity"] = quantity} else {item["quantity"] = document.quantity};
-                if (location) {item["location"] = location} else {item["location"] = document.location};
-                if (contact) {item["contact"] = contact} else {item["contact"] = document.contact};
-                if (userID) {item["userID"] = userID} else {item["userID"] = document.userID};
- 
-                db.insert(item, (err, result) => {
+                updatedItem['_rev'] =  document._rev;            // Specifiying the _rev turns this into an update
+                db.insert(updatedItem, (err, result) => {
                     if (err) {
                         console.log('Error occurred: ' + err.message, 'create()');
                         reject(err);
