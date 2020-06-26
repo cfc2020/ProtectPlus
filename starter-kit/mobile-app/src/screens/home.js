@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
 const Home = () => (
   <View style={styles.center}>
     <ScrollView style={styles.scroll}>
-      <Text style={styles.subtitle}>Info Screen</Text>
+      <Text style={styles.subtitle}>ProtectPlus</Text>
+      <Text>Medical professionals are struggling all around the world with COVID-19, and we want to help</Text>
     </ScrollView>
   </View>
 );

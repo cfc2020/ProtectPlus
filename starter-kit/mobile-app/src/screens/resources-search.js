@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, FlatList, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, FlatList, View, TouchableOpacity, Alert, Button } from 'react-native';
 import PickerSelect from 'react-native-picker-select';
 
-import { search } from '../lib/utils';
+import { update, search } from '../lib/utils';
 
 const styles = StyleSheet.create({
   outerView: {
@@ -20,6 +20,16 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 14,
     paddingBottom: 5
+  },
+  updateButton: {
+    backgroundColor: '#1062FE',
+    color: '#FFFFFF',
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 16,
+    overflow: 'hidden',
+    padding: 12,
+    textAlign:'center',
+    marginTop: 15
   },
   selector: {
     fontFamily: 'IBMPlexSans-Medium',
@@ -79,19 +89,47 @@ const styles = StyleSheet.create({
   }
 });
 
+const updateItem = (item) => {
+  console.log(item);
+    const payload = {
+      ...item,
+      available: false,
+      id: item.id || item['_id']
+    };
+
+    console.log(payload)
+
+    update(payload)
+      .then(() => {
+        Alert.alert('Done', 'Item has been requested', [{text: 'OK'}]);
+        props.navigation.goBack();
+      })
+      .catch(err => {
+        console.log(err);
+        Alert.alert('ERROR', err.message, [{text: 'OK'}]);
+      });
+  };
+
 const SearchResources = function ({ route, navigation }) {
-  const [query, setQuery] = React.useState({ type: 'Money', name: '' });
+  const [query, setQuery] = React.useState({ type: 'Meals', name: '' });
   const [items, setItems] = React.useState([]);
   const [info, setInfo] = React.useState('');
 
   const Item = (props) => {
     return (
-      <TouchableOpacity style={styles.itemTouchable}
-          onPress={() => { navigation.navigate('Map', { item: props }); }}>
+      <TouchableOpacity style={styles.itemTouchable}>
         <View style={styles.itemView}>
           <Text style={styles.itemName}>{props.name}</Text>
           <Text style={styles.itemQuantity}> ( {props.quantity} ) </Text>
         </View>
+        <TouchableOpacity onPress={() => { navigation.navigate('Map', { item: props }); }}>
+          <Text style={styles.updateButton}>
+            View location
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {updateItem(props)}}>
+          <Text style={styles.updateButton}>Request</Text>
+        </TouchableOpacity>
         <Text style={styles.itemDescription}>{props.description}</Text>
       </TouchableOpacity>
     );
@@ -109,7 +147,7 @@ const SearchResources = function ({ route, navigation }) {
       })
       .catch(err => {
         console.log(err);
-        Alert.alert('ERROR', 'Please try again. If the problem persists contact an administrator.', [{text: 'OK'}]);
+        Alert.alert('ERROR', 'Is this the error?', [{text: 'OK'}]);
       });
   };
 
@@ -125,9 +163,8 @@ const SearchResources = function ({ route, navigation }) {
               { label: 'Medical Supplies', value: 'Medical Supplies' },
               { label: 'Sleeping Quarters', value: 'Sleeping Quarters' },
               { label: 'Entertainment', value: 'Entertainment'},
-              { label: 'Meals', value: 'Meals'},
-              { label: 'Money', value: 'Money'}
-          ]}
+              { label: 'Meals', value: 'Meals'}
+              ]}
         />
         <Text style={styles.label}>Name</Text>
         <TextInput

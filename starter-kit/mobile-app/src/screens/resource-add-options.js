@@ -53,8 +53,6 @@ const AddResourceOptions = function ({ navigation }) {
     const _onPress = (item) => {
         if (item.key=='Meals') {
             navigation.navigate('Add Meals Donation');
-        } else if (item.key=='Money') {
-            navigation.navigate('Add Money Donation');
         } else if (item.key=='Medical Supplies') {
             navigation.navigate('Add Medical Donation');
         } else if (item.key=='Sleeping Quarters') {
@@ -80,8 +78,7 @@ const AddResourceOptions = function ({ navigation }) {
         { key: 'Medical Supplies', title: 'Medical Supplies'},
         { key: 'Sleeping Quarters', title: 'Sleeping Quarters'},
         { key: 'Entertainment', title: 'Entertainment'},
-        { key: 'Meals', title: 'Meals'},
-        { key: 'Money', title: 'Money'}
+        { key: 'Meals', title: 'Meals'}
         ]}
         renderItem={({item}) => (
           <TouchableHighlight style={styles.itemTouchable}

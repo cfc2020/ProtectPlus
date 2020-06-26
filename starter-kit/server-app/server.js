@@ -14,6 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const handleError = (res, err) => {
+  console.log(err);
   const status = err.code !== undefined && err.code > 0 ? err.code : 500;
   return res.status(status).json(err);
 };
@@ -152,7 +153,7 @@ app.get('/api/resource', (req, res) => {
  *
  * The ID and rev of the resource will be returned if successful
  */
-let types = ["Medical Supplies", "Entertainment", "Money", "Meals", "Sleeping Quarters"]
+let types = ["Medical Supplies", "Entertainment", "Meals", "Sleeping Quarters"]
 app.post('/api/resource', (req, res) => {
   if (!req.body.type) {
     return res.status(422).json({ errors: "Type of item must be provided"});
@@ -211,10 +212,13 @@ app.patch('/api/resource/:id', (req, res) => {
 
   const item = utils.parseRequestBody(req.body, req.params.id)
 
+  console.log(req.params.id)
+
   cloudant
-    .update(item)
+    .update(item, req.params.id)
     .then(data => {
       if (data.statusCode != 200) {
+        console.log(data.status)
         res.sendStatus(data.statusCode)
       } else {
         res.send(data.data)

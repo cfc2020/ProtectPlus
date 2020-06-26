@@ -18,11 +18,11 @@ const parseRequestBody = (body, id=null) => {
     item['description'] = body.description || '';
     item['userID'] = body.userID || '';
     item['location'] = body.location || '';
-    item['contact'] = body.contact || '';
+    item['contactEmail'] = body.contactEmail || '';
+    item['contactName'] = body.contactName || '';
+    item['available'] = lodash.isNull(body.available) ? true : body.available;
 
-    if (item.type==="Money") {
-        item['amount'] = body.amount || '0';
-    } else if (item.type==="Sleeping Quarters") {
+    if (item.type==="Sleeping Quarters") {
         item['start'] = body.start || '';
         item['end'] = body.end || '';
         item['numberOfPeople'] = body.numberOfPeople || '';

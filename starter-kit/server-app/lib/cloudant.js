@@ -179,7 +179,7 @@ function create(item) {
  * @return {Promise} - promise that will be resolved (or rejected)
  * when the call to the DB completes
  */
-function update(updatedItem) {
+function update(updatedItem, id) {
     return new Promise((resolve, reject) => {
         db.get(id, (err, document) => {
             if (err) {
