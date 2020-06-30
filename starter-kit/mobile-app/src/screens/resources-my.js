@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const MyResources = function ({ navigation }) {
+const MyResources = function ({ navigation }, hook) {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {

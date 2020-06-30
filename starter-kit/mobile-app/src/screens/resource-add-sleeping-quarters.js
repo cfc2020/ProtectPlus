@@ -4,6 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import PickerSelect from 'react-native-picker-select';
 import { CheckedIcon, UncheckedIcon } from '../images/svg-icons';
 import Geolocation from '@react-native-community/geolocation';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 import { add, userID } from '../lib/utils'
 
@@ -75,8 +77,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const AddResource = function ({ navigation }) {
-  const clearItem = { userID: userID(), type: 'Food', name: '', description: '', location: '', contact: '', quantity: '1' }
+const AddSleepingQuartersResource = function ({ navigation }) {
+  const clearItem = { userID: userID(), type: 'Sleeping Quarters', name: '', numberOfPeople: '', contactName: '', start: '', end: '', description: '', location: '', contactEmail: '' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(true);
   const [position, setPosition] = React.useState({})
@@ -118,42 +120,15 @@ const AddResource = function ({ navigation }) {
       })
       .catch(err => {
         console.log(err);
-        Alert.alert('ERROR', 'Please try again. If the problem persists contact an administrator.', [{text: 'OK'}]);
+        Alert.alert('ERROR', 'Please try again. If the problem persists contactEmail an administrator.', [{text: 'OK'}]);
       });
   };
-  
+
+
   return (
     <ScrollView style={styles.outerView}>
-      <View style={styles.splitView}>
-        <View style={styles.typeArea}>
-          <Text style={styles.label}>Type</Text>
-          <PickerSelect
-            style={{ inputIOS: styles.selector }}
-            value={item.type}
-            onValueChange={(t) => setItem({ ...item, type: t })}
-            items={[
-                { label: 'Food', value: 'Food' },
-                { label: 'Help', value: 'Help' },
-                { label: 'Other', value: 'Other' }
-            ]}
-          />
-        </View>
-        <View style={styles.quantityArea}>
-          <Text style={styles.label}>Quantity</Text>
-          <TextInput
-            style={styles.textInput}
-            value={item.quantity}
-            onChangeText={(t) => setItem({ ...item, quantity: t})}
-            onSubmitEditing={sendItem}
-            returnKeyType='send'
-            enablesReturnKeyAutomatically={true}
-            placeholder='e.g., 10'
-            keyboardType='numeric'
-          />
-        </View>
-      </View>
-
-      <Text style={styles.label}>Name</Text>
+    <View>
+      <Text style={styles.label}>Street Address</Text>
       <TextInput
         style={styles.textInput}
         value={item.name}
@@ -161,14 +136,65 @@ const AddResource = function ({ navigation }) {
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
-        placeholder='e.g., Tomotatoes'
+        placeholder='123 Fifth Avenue'
+      />
+    </View>
+    <View style={styles.quantityArea}>
+      <Text style={styles.label}>Number of People</Text>
+      <TextInput
+        style={styles.textInput}
+        value={item.numberOfPeople}
+        onChangeText={(t) => setItem({ ...item, numberOfPeople: t})}
+        onSubmitEditing={sendItem}
+        returnKeyType='send'
+        enablesReturnKeyAutomatically={true}
+        placeholder='e.g., 2'
+        keyboardType='numeric'
+      />
+    </View>
+        <View style={styles.splitView}>
+        <View style={styles.quantityArea}>
+          <Text style={styles.label}>Start Date Time</Text>
+            <TextInput
+              style={styles.textInput}
+              value={item.start}
+              onChangeText={(t) => setItem({ ...item, start: t})}
+              onSubmitEditing={sendItem}
+              returnKeyType='send'
+              enablesReturnKeyAutomatically={true}
+              placeholder='e.g., 02-03-2020'
+            />
+        </View>
+        <View style={styles.quantityArea}>
+          <Text style={styles.label}>End Date Time</Text>
+            <TextInput
+              style={styles.textInput}
+              value={item.end}
+              onChangeText={(t) => setItem({ ...item, end: t})}
+              onSubmitEditing={sendItem}
+              returnKeyType='send'
+              enablesReturnKeyAutomatically={true}
+              placeholder='e.g., 02-03-2020'
+            />
+        </View>
+      </View>
+
+      <Text style={styles.label}>Contact Name</Text>
+      <TextInput
+        style={styles.textInput}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
+        onSubmitEditing={sendItem}
+        returnKeyType='send'
+        enablesReturnKeyAutomatically={true}
+        placeholder='e.g. Sally'
         blurOnSubmit={false}
       />
       <Text style={styles.label}>Contact</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -182,7 +208,7 @@ const AddResource = function ({ navigation }) {
         onSubmitEditing={sendItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
-        placeholder='e.g., cans of tomatoes'
+        placeholder='e.g. N95 masks'
       />
       <Text style={styles.label}>Location</Text>
       <View style={styles.checkboxContainer}>
@@ -210,8 +236,8 @@ const AddResource = function ({ navigation }) {
 
       {
         item.type !== '' &&
-        item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
+        item.contactEmail.trim() !== '' &&
         <TouchableOpacity onPress={sendItem}>
           <Text style={styles.button}>Add</Text>
         </TouchableOpacity>
@@ -220,4 +246,5 @@ const AddResource = function ({ navigation }) {
   );
 };
 
-export default AddResource;
+export default AddSleepingQuartersResource;
+

@@ -11,7 +11,11 @@ import LoadingScreen from './src/screens/loading';
 import Home from './src/screens/home';
 import Chat from './src/screens/chat';
 import SearchResources from './src/screens/resources-search';
-import AddResource from './src/screens/resource-add';
+import AddMealsResource from './src/screens/resource-add-meals';
+import AddResourceOptions from './src/screens/resource-add-options';
+import AddMedicalResource from './src/screens/resource-add-medical-supplies';
+import AddSleepingQuartersResource from './src/screens/resource-add-sleeping-quarters';
+import AddEntertainmentResource from './src/screens/resource-add-entertainment-devices';
 import EditResource from './src/screens/resource-edit';
 import MyResources from './src/screens/resources-my';
 import Map from './src/screens/map';
@@ -36,12 +40,13 @@ const DonationsStackOptions = ({ navigation }) => {
   return ({
     headerRight: () => (
       <Button
-        onPress={() => navigation.navigate('Add Donation')}
+        onPress={() => navigation.navigate('Add Donation Options')}
         title='Add '
       />
     )
   });
 };
+
 
 const tabBarOptions = {
   // showLabel: false,
@@ -85,7 +90,11 @@ const TabLayout = () => (
 const DonateStackLayout = () => (
   <Stack.Navigator>
   <Stack.Screen name='My Donations' component={MyResources} options={DonationsStackOptions} />
-    <Stack.Screen name='Add Donation' component={AddResource} />
+    <Stack.Screen name='Add Donation Options' component={AddResourceOptions} />
+    <Stack.Screen name='Add Meals Donation' component={AddMealsResource} />
+    <Stack.Screen name='Add Medical Donation' component={AddMedicalResource} />
+    <Stack.Screen name='Add Sleeping Quarters Donation' component={AddSleepingQuartersResource} />
+    <Stack.Screen name='Add Entertainment Donation' component={AddEntertainmentResource} />
     <Stack.Screen name='Edit Donation' component={EditResource} />
   </Stack.Navigator>
 );

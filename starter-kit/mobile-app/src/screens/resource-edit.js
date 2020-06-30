@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 });
 
 const EditResource = (props) => {
-  const clearItem = { userID: userID(), e: 'Food', name: '', description: '', location: '', contact: '', quantity: '1' }
+  const clearItem = { userID: userID(), type: 'Meals', name: '', description: '', location: '', contactName: '', contactEmail: '', quantity: '1' , numberOfPeople: '1', start: '', end: '' }
   const [item, setItem] = React.useState(clearItem);
   const [useLocation, setUseLocation] = React.useState(false);
   const [position, setPosition] = React.useState({})
@@ -94,7 +94,7 @@ const EditResource = (props) => {
   React.useEffect(() => {
     props.navigation.addListener('focus', () => {
       const item = props.route.params.item;
-      setItem({ 
+      setItem({
         ...item,
         quantity: item.quantity.toString()
        });
@@ -160,54 +160,99 @@ const EditResource = (props) => {
         Alert.alert('ERROR', err.message, [{text: 'OK'}]);
       });
   };
-  
+
+  const hasQuantity = (item.type === 'Medical Supplies') || (item.type === 'Entertainment') || (item.type === 'Meals');
+  const isSleepingQuarters = item.type === 'Sleeping Quarters';
+
+
   return (
     <ScrollView style={styles.outerView}>
-      <View style={styles.splitView}>
-        <View style={styles.typeArea}>
-          <Text style={styles.label}>Type</Text>
-          <PickerSelect
-            style={{ inputIOS: styles.selector }}
-            value={item.type}
-            onValueChange={(t) => setItem({ ...item, type: t })}
-            items={[
-                { label: 'Food', value: 'Food' },
-                { label: 'Help', value: 'Help' },
-                { label: 'Other', value: 'Other' }
-            ]}
-          />
-        </View>
-        <View style={styles.quantityArea}>
-          <Text style={styles.label}>Quantity</Text>
-          <TextInput
-            style={styles.textInput}
-            value={item.quantity}
-            onChangeText={(t) => setItem({ ...item, quantity: t})}
-            onSubmitEditing={updateItem}
-            returnKeyType='send'
-            enablesReturnKeyAutomatically={true}
-            placeholder='e.g., 10'
-            keyboardType='numeric'
-          />
-        </View>
+      <View>
+        <Text style={styles.label}>Name</Text>
+        <TextInput
+          style={styles.textInput}
+          value={item.name}
+          onChangeText={(t) => setItem({ ...item, name: t})}
+          onSubmitEditing={updateItem}
+          returnKeyType='send'
+          enablesReturnKeyAutomatically={true}
+        />
       </View>
 
-      <Text style={styles.label}>Name</Text>
+      {hasQuantity &&
+          <View style={styles.quantityArea}>
+            <Text style={styles.label}>Quantity</Text>
+            <TextInput
+              style={styles.textInput}
+              value={item.quantity}
+              onChangeText={(t) => setItem({ ...item, quantity: t})}
+              onSubmitEditing={updateItem}
+              returnKeyType='send'
+              enablesReturnKeyAutomatically={true}
+              placeholder='e.g., 10'
+              keyboardType='numeric'
+            />
+          </View>}
+
+      {isSleepingQuarters &&
+         <View>
+          <View style={styles.quantityArea}>
+            <Text style={styles.label}>Number of People</Text>
+            <TextInput
+              style={styles.textInput}
+              value={item.numberOfPeople}
+              onChangeText={(t) => setItem({ ...item, numberOfPeople: t})}
+              onSubmitEditing={updateItem}
+              returnKeyType='send'
+              enablesReturnKeyAutomatically={true}
+              placeholder='e.g., 2'
+              keyboardType='numeric'
+            />
+          </View>
+          <View style={styles.splitView}>
+            <View style={styles.quantityArea}>
+              <Text style={styles.label}>Start Date Time</Text>
+                <TextInput
+                  style={styles.textInput}
+                  value={item.start}
+                  onChangeText={(t) => setItem({ ...item, start: t})}
+                  onSubmitEditing={updateItem}
+                  returnKeyType='send'
+                  enablesReturnKeyAutomatically={true}
+                  placeholder='e.g., 02-03-2020'
+                />
+            </View>
+            <View style={styles.quantityArea}>
+              <Text style={styles.label}>End Date Time</Text>
+                <TextInput
+                  style={styles.textInput}
+                  value={item.end}
+                  onChangeText={(t) => setItem({ ...item, end: t})}
+                  onSubmitEditing={updateItem}
+                  returnKeyType='send'
+                  enablesReturnKeyAutomatically={true}
+                  placeholder='e.g., 02-03-2020'
+                />
+            </View>
+          </View>
+         </View>}
+
+      <Text style={styles.label}>Contact Name</Text>
       <TextInput
         style={styles.textInput}
-        value={item.name}
-        onChangeText={(t) => setItem({ ...item, name: t})}
+        value={item.contactName}
+        onChangeText={(t) => setItem({ ...item, contactName: t})}
         onSubmitEditing={updateItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
         placeholder='e.g., Tomotatoes'
         blurOnSubmit={false}
       />
-      <Text style={styles.label}>Contact</Text>
+      <Text style={styles.label}>Contact Email</Text>
       <TextInput
         style={styles.textInput}
-        value={item.contact}
-        onChangeText={(t) => setItem({ ...item, contact: t})}
+        value={item.contactEmail}
+        onChangeText={(t) => setItem({ ...item, contactEmail: t})}
         onSubmitEditing={updateItem}
         returnKeyType='send'
         enablesReturnKeyAutomatically={true}
@@ -249,7 +294,6 @@ const EditResource = (props) => {
       {
         item.type !== '' &&
         item.name.trim() !== '' &&
-        item.contact.trim() !== '' &&
         <TouchableOpacity onPress={updateItem}>
           <Text style={styles.updateButton}>Update</Text>
         </TouchableOpacity>

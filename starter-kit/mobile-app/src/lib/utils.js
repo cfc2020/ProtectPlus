@@ -54,6 +54,7 @@ export const add = (item) => {
 };
 
 export const update = (item) => {
+  console.log(item.id)
   return fetch(`${serverUrl}/api/resource/${item.id}`, {
     method: 'PATCH',
     mode: 'no-cors',
@@ -67,7 +68,7 @@ export const update = (item) => {
       if (response.status === 404) {
         throw new Error('Item not found');
       } else {
-        throw new Error('Please try again. If the problem persists contact an administrator.');
+        throw new Error(response.statusText);
       }
     }
   });
