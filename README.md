@@ -1,23 +1,21 @@
 # Community collaboration in the context of COVID-19
 
-This solution starter was created by technologists from IBM.
+The purpose of ProtectPlus is to help healthcare workers in a health crisis such as COVID19. This app allows the community to donate critical resources such as meals, safe place for health care workers to sleep and relax and so on. To protect the community, we must protect the healthcare workers first.
 
 ## Authors
 
-- Henry Nash
-- Va Barbosa
-- Javier Torres
-- Omer Arad
-- JJ Asghar
-- Jody Burks
-- Robert Loredo
-- Debbie Kestin Schildkraut
-- Bruce Weed
+
+- Prachi Khadke
+- Georges Ajaka
+- Anupama Murthi
+- Dipesh Rawat
+- Kelcey Gosserand
+
 
 ## Contents
 
 1. [Overview](#overview)
-2. [The idea](#the-idea)
+2. [The idea and MVP](#the-idea-and-mvp)
 3. [How it works](#how-it-works)
 4. [Diagrams](#diagrams)
 5. [Documents](#documents)
@@ -44,27 +42,51 @@ Mobile, web, and cloud services enable rapid deployment of applications that can
 
 Creating a chatbot using Watson Assistant can help you address the issues that your users may face while trying to gather the necessary information. Embedding location/routing services (like [HERE](https://developer.here.com/products/routing)) can enhance such applications, giving optimum guidance so that they are outside of their isolation location for the minimum amount of time.
 
-## The idea
+## The idea and MVP
 
-The goal is to provide a mobile application, along with server-side components, that serves as the basis for developers to build out a community cooperation application that addresses local needs for food, equipment, and resources.
-It would allow both "Suppliers" (such as a store or a community member who has produce they can sell or distribute) to make people aware of what the have; and consumers ("Recipients") to locate where these supplies are, and, if necessary, guide them to the appropriate locations to pick them up.
+The purpose of ProtectPlus is to help healthcare workers in a health crisis such as COVID19. This app allows the community to donate critical resources such as meals, safe place for health care workers to sleep and relax and so on. To protect the community, we must protect the healthcare workers first.
 
-## How it works
+### Screens:
 
-A Supplier (who may be a regular resident, a small business, a voluntary organization, etc.) that has food, supplies, resources, or other essentials they can provide opens the mobile application and fills out a brief form that indicates what they have. This information is then stored in a database in the IBM Cloud.
+1. Login screen
+2. Authentication
+3. Screen for every type of donation.
 
-A Recipient, who is in need of food, supplies, resources, or other essentials, opens the mobile application and can use the chat interface to locate supplies near them. For instance, they might type "Where can I find bread?" or "Can someone collect my shopping for me?" The mobile application then accesses the database (after first understanding the question via Watson Assistant) and then displays a map showing locally where they can find what they are looking for.
+    3a. Types of donations:
+    * housing
+    * medical supplies
+    * food
+    * ipad/ device for people in ICU (isolation)
+    * groceries? (maybe later?)
 
-## Diagrams
+    3b. APIs we can tap for donations/delivery
+    * Gofundme (secure)
+    * uber/courier
 
-![Cooperation architecture diagram](/images/architecture-diagram.png)
+4. matching needs with availability
+5. state diagram  + algorithm: yelp/google maps api
+6. screen for healthcare professional/hospital administrator 
+7. service provider (local restaurant) screen (with donation option)  
 
-This solution starter idea combines a chat interface (Watson Assistant), data storage to hold the status of supplies available, and location services with real-time information to get users the information they need.
+### Technical Architecture:
+* connection to database (starter kit)
+* Web-server (reactjs) 
 
-1. The Recipient launches the mobile app and can access information across multiple services.
-1. The Recipient can ask questions to Watson Assistant and get answers on food/service availability questions.
-1. The Supplier can post the availability of stock or services they can provide, as well as locate the items they need.
-1. The Recipient can obtain geolocation data to plot routes to collect (or drop off) supplies using HERE Location Services.
+
+### API References:
+#### Delivery
+* dropoff: https://www.dropoff.com/solutions/api/
+* ubereats: https://developer.uber.com/docs/eats/introduction
+* delivery.com: https://developers.delivery.com/
+* parseur: https://parseur.com/use-case/food-delivery-order-api-for-grubhub-eat24-seamless#when-use-a-food-delivery-api
+
+#### Donations
+* Gofundme (https://charityapi.gofundme.com/)
+* Facebook fundraisers:  https://www.facebook.com/fundraisers/about/personal-fundraising?sem_campaign_id=1885916387.75795640248.347791793248.Cj0KCQjwj7v0BRDOARIsAGh37irN6JJwPBiDD1pW3EAoLWdlPSNcyULRO1GII47gTaOCH3jvjh2L0TMaAsYEEALw_wcB&sem_adgroupid=c.kwd-296198580168&sem_keyword=gofundme
+* 3. https://socialgood.fb.com/charitable-giving/fundraiser-api/
+
+#### Additional references
+* http://systrom.com/blog/the-metric-we-need-to-manage-covid-19/
 
 ## Documents
 
