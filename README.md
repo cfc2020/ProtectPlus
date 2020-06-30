@@ -46,6 +46,12 @@ Creating a chatbot using Watson Assistant can help you address the issues that y
 
 The purpose of ProtectPlus is to help healthcare workers in a health crisis such as COVID19. This app allows the community to donate critical resources such as meals, safe place for health care workers to sleep and relax and so on. To protect the community, we must protect the healthcare workers first.
 
+In this COVID19 Crisis, the medical community has been affected the worst. Medical professionals are working with COVID19 patients in unsafe conditions with limited protective medical equipment. They are overworked. They don't have the time to go home. And even if they could, they don't want to go home and affect their families. So they are sleeping in their cars and not getting enough sleep, food or protective medical equipment. Their support system has been restricted. The purpose of this app is to help Protect these heros who are working on the frontline to protect us.
+
+The app allows the community to donate resources such as meals, medical equipment, sleeping quarter (safe place for medical professionals to go and sleep so they don't affect their families), entertainment resources and so on.
+
+In the future we are also planning to add money donation and integration with uber and courier services. This would allow money donations to pay for restaurant, pharmacies and grocery stores to give away meals and other needs medical needs. Partnering with uber/courier-services/donor-drivers would allow the community to thrive by helping courier services/uber and local businesses and at the same time give an opportunity to protect our medical professionals.
+
 ### Screens:
 
 1. Login screen
